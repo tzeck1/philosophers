@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/02/18 17:02:07 by tom              ###   ########.fr       */
+/*   Updated: 2022/02/18 17:25:23 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	check_input(char **argv)
 	return (true);
 }
 
-t_input	*save_input(t_input *input, char **argv)
+static t_input	*save_input(t_input *input, char **argv)
 {
 	input->philo_count = ft_atoi(argv[1]);
 	input->time_to_die = ft_atoi(argv[2]);
@@ -52,9 +52,7 @@ t_input	*save_input(t_input *input, char **argv)
 
 t_input	*init_input(char **argv)
 {
-	t_input *input;
-	int	i;
-	int	j;
+	t_input	*input;
 
 	if (check_input(argv) == false)
 		return (NULL);
