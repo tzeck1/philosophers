@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/02/28 19:23:40 by tom              ###   ########.fr       */
+/*   Updated: 2022/02/28 19:38:11 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_print_help(void)
 {
-	printf("./philo\t");
-	printf(GREEN"[n of philos]  "RESETCOLOR);
+	printf(BLUE"./philo\t"RESETCOLOR);
+	printf(BLUE"[n of philos]  "RESETCOLOR);
 	printf(BLUE"[time to die]  "RESETCOLOR);
-	printf(PURPLE"[time to eat]  "RESETCOLOR);
-	printf(RED"[time to sleep]  "RESETCOLOR);
-	printf(YELLOW"[n times philo must eat]\n"RESETCOLOR);
+	printf(BLUE"[time to eat]  "RESETCOLOR);
+	printf(BLUE"[time to sleep]  "RESETCOLOR);
+	printf(BLUE"[n times philo must eat]\n"RESETCOLOR);
 }
 
 int	main(int argc, char **argv)
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 	{
-		printf("Wrong number of arguments!\n");
+		printf(RED"Wrong number of arguments!\n"RESETCOLOR);
 		ft_print_help();
 		return (1);
 	}
