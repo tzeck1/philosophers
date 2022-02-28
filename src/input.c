@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/02/18 17:25:23 by tom              ###   ########.fr       */
+/*   Updated: 2022/02/22 14:07:01 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	check_input(char **argv)
 		{
 			if (ft_isdigit(argv[i][j]) == false)
 			{
-				printf("non integer input\n");
+				printf("wrong input type\n");
 				return (false);
 			}
 			if (ft_atoi(argv[i]) > INT_MAX || ft_atoi(argv[i]) <= 0)
