@@ -6,7 +6,7 @@
 #    By: tom <tom@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 17:04:37 by tom               #+#    #+#              #
-#    Updated: 2022/02/28 19:05:31 by tom              ###   ########.fr        #
+#    Updated: 2022/02/28 19:11:32 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OBJ_PATH = ./obj/
 UTILS_PATH = ./src/
 
 # SOURCES
-SRC =	$(SRC_PATH)main.c $(SRC_PATH)input.c $(SRC_PATH)utils.c
+SRC =	$(SRC_PATH)main.c $(SRC_PATH)input.c $(SRC_PATH)utils.c 
 
 # OBJECTS
 OBJ = $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))
@@ -40,10 +40,15 @@ OBJ = $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))
 # RULES
 all: $(NAME)
 	@echo $(G)"         __     __ __                           __                      "$(X)
+	@sleep 0.15
 	@echo $(G)" .-----.|  |--.|__|  |.-----.-----.-----.-----.|  |--.-----.----.-----. "$(X)
+	@sleep 0.15
 	@echo $(G)" |  _  ||     ||  |  ||  _  |__ --|  _  |  _  ||     |  -__|   _|__ --| "$(X)
+	@sleep 0.15
 	@echo $(G)" |   __||__|__||__|__||_____|_____|_____|   __||__|__|_____|__| |_____| "$(X)
+	@sleep 0.15
 	@echo $(G)" |__|                                   |__|                            "$(X)
+	@sleep 0.15
 	@printf "\n\n"
 
 $(OBJ_PATH)%.o :$(SRC_PATH)%.c
@@ -63,20 +68,16 @@ $(NAME): $(OBJ)
 clean:
 	@if [ -d "$(OBJ_PATH)" ]; then \
 			rm -f -r $(OBJ_PATH); \
-			echo $(R)Cleaning" "[$(OBJ) $(OBJ_PATH)]...$(X); else \
+			echo $(R)Cleaning" "[$(OBJ) $(OBJ_PATH)]$(X); else \
 			echo "No objects to remove."; \
 	fi;
-	@sleep 0.4
-	@printf $(UP)$(CUT)
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
 			rm -f $(NAME); \
-			echo $(R)Cleaning" "[$(NAME)]...$(X);else \
+			echo $(R)Cleaning" "[$(NAME)]$(X);else \
 			echo "No executable to remove."; \
 	fi;
-	@sleep 0.4
-	@printf $(UP)$(CUT)
 
 re: fclean all
 
