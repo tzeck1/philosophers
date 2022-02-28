@@ -6,7 +6,7 @@
 #    By: tom <tom@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 17:04:37 by tom               #+#    #+#              #
-#    Updated: 2022/02/18 17:18:25 by tom              ###   ########.fr        #
+#    Updated: 2022/02/28 19:05:31 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,12 +49,14 @@ all: $(NAME)
 $(OBJ_PATH)%.o :$(SRC_PATH)%.c
 	@echo $(Y)Compiling [$@]...$(X)
 	@mkdir -p $(dir $@)
+	@sleep 0.2
+	@printf $(UP)$(CUT)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@echo $(G)Finished [$@]$(X)
+	@sleep 0.2
+	@printf $(UP)$(CUT)
 
 $(NAME): $(OBJ)
-	@echo $(Y)Compiling [$(SRC)]
-	@echo into [$(NAME)]...$(X)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo $(G)Finished [$(NAME)]$(X)
 
@@ -64,6 +66,8 @@ clean:
 			echo $(R)Cleaning" "[$(OBJ) $(OBJ_PATH)]...$(X); else \
 			echo "No objects to remove."; \
 	fi;
+	@sleep 0.4
+	@printf $(UP)$(CUT)
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
@@ -71,6 +75,8 @@ fclean: clean
 			echo $(R)Cleaning" "[$(NAME)]...$(X);else \
 			echo "No executable to remove."; \
 	fi;
+	@sleep 0.4
+	@printf $(UP)$(CUT)
 
 re: fclean all
 
