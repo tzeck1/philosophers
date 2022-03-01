@@ -6,12 +6,15 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/02/28 19:40:05 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/02 00:00:06 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief  returns true if input is only numeric, false if not
+ */
 static bool	check_input(char **argv)
 {
 	int	i;
@@ -38,6 +41,12 @@ static bool	check_input(char **argv)
 	return (true);
 }
 
+/**
+ * @brief  saves user input in struct
+ * @param  *input: input struct
+ * @param  **argv: user input
+ * @retval input struct
+ */
 static t_input	*save_input(t_input *input, char **argv)
 {
 	input->philo_count = ft_atoi(argv[1]);
@@ -51,6 +60,11 @@ static t_input	*save_input(t_input *input, char **argv)
 	return (input);
 }
 
+/**
+ * @brief  checks input and creates input struct
+ * @param  **argv: user input
+ * @retval input struct
+ */
 t_input	*init_input(char **argv)
 {
 	t_input	*input;
