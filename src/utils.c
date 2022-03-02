@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:44:53 by tom               #+#    #+#             */
-/*   Updated: 2022/02/18 16:18:11 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/02 00:06:17 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,6 @@ long	ft_atoi(const char *str)
 	return (re * sign);
 }
 
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	*p;
-
-	p = (unsigned char *)b;
-	while (len > 0)
-	{
-		*p = (unsigned char)c;
-		p++;
-		len--;
-	}
-	return (b);
-}
-
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*p;
@@ -69,6 +55,6 @@ void	*ft_calloc(size_t count, size_t size)
 	p = malloc(count * size);
 	if (p == NULL)
 		return (NULL);
-	ft_memset(p, 0, count * size);
+	memset(p, 0, count * size);
 	return (p);
 }

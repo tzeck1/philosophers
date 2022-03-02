@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/02/28 19:46:01 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/02 00:09:25 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 /*	external libarys	*/
 # include <stdio.h> // printf
 # include <stdbool.h> // bool type
+# include <string.h> // memset
+# include <sys/time.h> // gettimeofday
 # include <limits.h> // int_max / int_min macros
 # include <stdlib.h> // malloc
 # include <pthread.h> // pthread functions
