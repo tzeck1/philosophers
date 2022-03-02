@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:44:53 by tom               #+#    #+#             */
-/*   Updated: 2022/03/02 00:06:17 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/02 02:04:20 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ bool	ft_isdigit(int c)
 		return (false);
 }
 
-long	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	long	i;
-	long	re;
-	long	sign;
+	long long	i;
+	long long	re;
+	long long	sign;
 
 	i = 0;
 	sign = 1;
@@ -57,4 +57,16 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	memset(p, 0, count * size);
 	return (p);
+}
+
+void	ft_print_error(char *error)
+{
+	int	i;
+	
+	i = 0;
+	while(error[i] != '\0')
+	{
+		write(2, &error[i], sizeof(char));
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/02 01:06:55 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/02 02:06:36 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,33 @@
  */
 void	ft_print_help(void)
 {
-	printf(YELLOW "./philo\t" RESETCOLOR);
-	printf(YELLOW "[n of philos]  " RESETCOLOR);
-	printf(YELLOW "[time to die]  " RESETCOLOR);
-	printf(YELLOW "[time to eat]  " RESETCOLOR);
-	printf(YELLOW "[time to sleep]  " RESETCOLOR);
-	printf(YELLOW "[n times philo must eat]\n" RESETCOLOR);
+	printf(YELLOW "./philo\t"RESET);
+	printf(YELLOW"[n of philos]  "RESET);
+	printf(YELLOW"[time to die]  "RESET);
+	printf(YELLOW"[time to eat]  "RESET);
+	printf(YELLOW"[time to sleep]  "RESET);
+	printf(YELLOW"[n times philo must eat]\n" RESET);
 }
 
 int	main(int argc, char **argv)
 {
 	t_input	*input;
-	
+	t_philo	**philos;
+
 	if (argc < 5 || argc > 6)
 	{
-		printf(RED "Wrong number of arguments!\n" RESETCOLOR);
+		ft_print_error(RED"Wrong number of arguments!\n"RESET);
 		ft_print_help();
 		return (EXIT_FAILURE);
 	}
 	input = init_input(argv);
 	if (input == NULL)
 		return (EXIT_FAILURE);
+	philos = ft_calloc(1, sizeof(t_philo *));
+	if (init_philos(input, philos) == EXIT_FAILURE)
+	{
+		ft_print_error(RED"Error while creating philos!\n"RESET);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
