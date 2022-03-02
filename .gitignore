@@ -1,4 +1,4 @@
 philo
 obj/*
 thread_sandbox/
-.vscode/
+# .vscode/
