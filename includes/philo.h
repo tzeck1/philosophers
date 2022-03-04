@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/02 02:06:13 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/04 18:15:10 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,21 @@ typedef struct s_input
 
 typedef struct s_philo
 {
-	int			philo_n;
-	pthread_t	thread_id;
-}				t_philo;
+	int					philo_n;
+	pthread_t			thread_id;
+}						t_philo;
 
 /*	input handling	*/
 void		ft_print_help(void);
 t_input		*init_input(char **argv);
 
 /*	create philos	*/
-int	init_philos(t_input *input, t_philo **philos);
+int		init_philos(t_input *input, t_philo **philos);
 
 /*	utils	*/
 void		*ft_calloc(size_t count, size_t size);
 void		ft_print_error(char *error);
+void		free_philos(t_philo	**philos);
 bool		ft_isdigit(int c);
 long long	ft_atoi(const char *str);
 

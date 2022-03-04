@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/02 02:06:36 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/04 19:28:28 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ int	main(int argc, char **argv)
 	input = init_input(argv);
 	if (input == NULL)
 		return (EXIT_FAILURE);
-	philos = ft_calloc(1, sizeof(t_philo *));
+	philos = malloc((input->philo_count + 1) * sizeof(t_philo));
 	if (init_philos(input, philos) == EXIT_FAILURE)
 	{
 		ft_print_error(RED"Error while creating philos!\n"RESET);
 		return (EXIT_FAILURE);
 	}
+	free_philos(philos);
+	free(input);
+	system("leaks philo");
 	return (EXIT_SUCCESS);
 }
