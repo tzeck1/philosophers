@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/04 19:19:46 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/04 20:39:16 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	init_thread(t_philo **philos, int i)
 {
 	int	error;
 
-	error = pthread_create(&philos[i]->thread_id, NULL, &routine, philos[i]);
+	error = pthread_create(&philos[i]->thread_id, NULL, &routine, NULL);
 	usleep(50);
 	if (error != 0)
 		return (EXIT_FAILURE);
