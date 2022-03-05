@@ -6,7 +6,7 @@
 #    By: tom <tom@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/01 00:09:38 by tom               #+#    #+#              #
-#    Updated: 2022/03/01 00:09:40 by tom              ###   ########.fr        #
+#    Updated: 2022/03/04 21:01:42 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ OBJ_PATH = ./obj/
 UTILS_PATH = ./src/
 
 # SOURCES
-SRC =	$(SRC_PATH)main.c $(SRC_PATH)input.c $(SRC_PATH)utils.c 
+SRC =	$(SRC_PATH)main.c $(SRC_PATH)utils.c \
+		$(SRC_PATH)input.c $(SRC_PATH)philos.c
 
 # OBJECTS
 OBJ = $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))

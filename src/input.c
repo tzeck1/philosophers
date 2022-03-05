@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/02 00:56:31 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/02 02:07:12 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	check_input(char **argv)
 		{
 			if (ft_isdigit(argv[i][j]) == false)
 			{
-				printf(RED "Wrong Input Type!\n" RESETCOLOR);
+				ft_print_error(RED"Wrong Input Type!\n"RESET);
 				ft_print_help();
 				return (false);
 			}
