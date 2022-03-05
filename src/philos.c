@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/05 20:26:53 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/05 20:41:47 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	*routine(void *arg)
 	if (philo->wait == false)
 		pthread_mutex_lock(&start_wait);
 	else
+	{
 		pthread_mutex_unlock(&start_wait);
+		pthread_mutex_destroy(&start_wait);
+	}
+	printf("hello from philo %d\n", philo->philo_n);
 	return (NULL);
 }
 
