@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/04 18:15:10 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/05 19:10:16 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 {
 	int					philo_n;
 	pthread_t			thread_id;
+	bool				wait;
 }						t_philo;
 
 /*	input handling	*/
@@ -54,7 +55,7 @@ void		ft_print_help(void);
 t_input		*init_input(char **argv);
 
 /*	create philos	*/
-int		init_philos(t_input *input, t_philo **philos);
+int			init_philos(t_input *input, t_philo **philos);
 
 /*	utils	*/
 void		*ft_calloc(size_t count, size_t size);
