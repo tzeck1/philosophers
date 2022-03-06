@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/06 14:58:04 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/06 15:09:45 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,6 @@ int	main(int argc, char **argv)
 		ft_print_error(RED"Error while creating philos!\n"RESET);
 		return (EXIT_FAILURE);
 	}
-	/*	testing	*/
-	// int i = 0;
-	// while (philos[i] != NULL)
-	// {
-	// 	printf("philo %d: \n", philos[i]->philo_n);
-	// 	write(1, "right: ", 8);
-	// 	write(1, &philos[i]->fork_r, sizeof(pthread_mutex_t));
-	// 	write(1, "\n", 1);
-	// 	write(1, "left: ", 7);
-	// 	write(1, &philos[i]->fork_l, sizeof(pthread_mutex_t));
-	// 	write(1, "\n", 1);
-	// 	i++;
-	// }
-	/*	testing	*/
 	ft_terminate(input, philos);
 	// system("leaks philo");
 	return (EXIT_SUCCESS);
