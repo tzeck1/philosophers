@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/05 20:41:47 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/06 14:25:34 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	*routine(void *arg)
 	t_philo			*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_init(&start_wait, NULL);
 	if (philo->wait == false)
 		pthread_mutex_lock(&start_wait);
 	else
@@ -25,8 +26,39 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(&start_wait);
 		pthread_mutex_destroy(&start_wait);
 	}
-	printf("hello from philo %d\n", philo->philo_n);
+	// printf("hello from philo %d\n", philo->philo_n);
 	return (NULL);
+}
+
+/**
+ * @brief  init_mutex for every philos fork; give them access to left one
+ * @param  **philos: philo array
+ * @retval error if mutex_init for fork fails or success
+ */
+static int	init_forks(t_philo **philos)
+{
+	int	i;
+	int	error;
+
+	i = 0;
+	while (philos[i] != NULL)
+	{
+		error = pthread_mutex_init(&philos[i]->fork_r, NULL);
+		if (error != 0)
+		{
+			destroy_forks(philos);
+			return (EXIT_FAILURE);
+		}
+		i++;
+	}
+	i = 1;
+	while (philos[i] != NULL)
+	{
+		philos[i]->fork_l = philos[i - 1]->fork_r;
+		i++;
+	}
+	philos[0]->fork_l = philos[i - 1]->fork_r;
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -35,7 +67,7 @@ void	*routine(void *arg)
  * @param  i: philo index
  * @retval error if creation fails or success
  */
-static int	init_thread(t_philo **philos, int i)
+static int	init_threads(t_philo **philos, int i)
 {
 	int	error;
 
@@ -65,7 +97,9 @@ int	init_philos(t_input *input, t_philo **philos)
 				philos[i]->wait = false;
 		if (i + 1 >= input->philo_count)
 			philos[i]->wait = true;
-		if (init_thread(philos, i) == EXIT_FAILURE)
+		if (init_threads(philos, i) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		if (init_forks(philos) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		i++;
 	}

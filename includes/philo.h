@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/05 19:10:16 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/06 14:22:06 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_philo
 {
 	int					philo_n;
 	pthread_t			thread_id;
+	pthread_mutex_t		fork_r;
+	pthread_mutex_t		fork_l;
 	bool				wait;
 }						t_philo;
 
@@ -63,5 +65,6 @@ void		ft_print_error(char *error);
 void		free_philos(t_philo	**philos);
 bool		ft_isdigit(int c);
 long long	ft_atoi(const char *str);
+void		destroy_forks(t_philo	**philos);
 
 #endif

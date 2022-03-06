@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/02 02:07:12 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/06 15:04:03 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ static bool	check_input(char **argv)
 		j = 0;
 		while (argv[i][j] != '\0')
 		{
-			if (ft_isdigit(argv[i][j]) == false)
+			if ((ft_isdigit(argv[i][j]) == false) ||
+				(ft_atoi(argv[i]) > INT_MAX || ft_atoi(argv[i]) <= 0))
 			{
-				ft_print_error(RED"Wrong Input Type!\n"RESET);
+				ft_print_error(RED"Wrong Input Type!"RESET);
 				ft_print_help();
 				return (false);
 			}
-			if (ft_atoi(argv[i]) > INT_MAX || ft_atoi(argv[i]) <= 0)
-				return (false);
 			j++;
 		}
 		i++;
