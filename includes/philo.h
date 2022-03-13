@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/06 14:22:06 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/09 23:04:22 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,22 @@ typedef struct s_philo
 	bool				wait;
 }						t_philo;
 
+typedef struct s_data
+{
+	t_input			*input;
+	t_philo			*philo;
+	pthread_mutex_t	start;
+}			t_data;
+
 /*	input handling	*/
 void		ft_print_help(void);
 t_input		*init_input(char **argv);
 
 /*	create philos	*/
 int			init_philos(t_input *input, t_philo **philos);
+
+/*	routine	*/
+void		*routine(void *arg);
 
 /*	utils	*/
 void		*ft_calloc(size_t count, size_t size);
@@ -66,5 +76,6 @@ void		free_philos(t_philo	**philos);
 bool		ft_isdigit(int c);
 long long	ft_atoi(const char *str);
 void		destroy_forks(t_philo	**philos);
+void		free_all(t_philo **philos, t_input *input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:44:53 by tom               #+#    #+#             */
-/*   Updated: 2022/03/06 15:13:24 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/09 22:54:18 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	destroy_forks(t_philo	**philos)
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		pthread_mutex_destroy(&philos[i]->fork_r);
+		// pthread_mutex_destroy(&philos[i]->fork_r);
 		i++;
 	}
 }
@@ -122,4 +122,11 @@ void	free_philos(t_philo	**philos)
 		i++;
 	}
 	free(philos);
+}
+
+void	free_all(t_philo **philos, t_input *input)
+{
+	destroy_forks(philos);
+	free_philos(philos);
+	free(input);
 }

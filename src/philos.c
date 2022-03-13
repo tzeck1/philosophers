@@ -6,29 +6,11 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/06 14:25:34 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/09 23:04:57 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-void	*routine(void *arg)
-{
-	pthread_mutex_t	start_wait;
-	t_philo			*philo;
-
-	philo = (t_philo *)arg;
-	pthread_mutex_init(&start_wait, NULL);
-	if (philo->wait == false)
-		pthread_mutex_lock(&start_wait);
-	else
-	{
-		pthread_mutex_unlock(&start_wait);
-		pthread_mutex_destroy(&start_wait);
-	}
-	// printf("hello from philo %d\n", philo->philo_n);
-	return (NULL);
-}
 
 /**
  * @brief  init_mutex for every philos fork; give them access to left one
@@ -67,12 +49,20 @@ static int	init_forks(t_philo **philos)
  * @param  i: philo index
  * @retval error if creation fails or success
  */
-static int	init_threads(t_philo **philos, int i)
+static int	init_threads(t_input *input, t_philo **philos, int i)
 {
-	int	error;
+	int		error;
+	t_data	*data;
 
-	error = pthread_create(&philos[i]->thread_id, NULL, &routine, philos[i]);
+	data = ft_calloc(1, sizeof(t_data));
+	if (data == NULL)
+		return (EXIT_FAILURE);
+	data->input = input;
+	data->philo = philos[i];
+	pthread_mutex_init(&(data->start), NULL);
+	error = pthread_create(&philos[i]->thread_id, NULL, &routine, data);
 	usleep(50);
+	// free(data);
 	if (error != 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -94,10 +84,10 @@ int	init_philos(t_input *input, t_philo **philos)
 		if (philos[i] == NULL)
 			return (EXIT_FAILURE);
 		philos[i]->philo_n = i + 1;
-				philos[i]->wait = false;
+		philos[i]->wait = false;
 		if (i + 1 >= input->philo_count)
 			philos[i]->wait = true;
-		if (init_threads(philos, i) == EXIT_FAILURE)
+		if (init_threads(input, philos, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		if (init_forks(philos) == EXIT_FAILURE)
 			return (EXIT_FAILURE);

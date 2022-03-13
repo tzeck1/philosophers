@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/06 15:09:45 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/09 22:58:53 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,12 @@ static int	ft_terminate(t_input *input, t_philo **philos)
 		if (error != 0)
 		{
 			ft_print_error(RED"Error while waiting for threads!"RESET);
-			destroy_forks(philos);
-			free_philos(philos);
-			free(input);
+			free_all(philos, input);
 			return (EXIT_FAILURE);
 		}
 		i++;
 	}
-	destroy_forks(philos);
-	free_philos(philos);
-	free(input);
+	free_all(philos, input);
 	return (EXIT_SUCCESS);
 }
 
