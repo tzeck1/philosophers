@@ -6,12 +6,17 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/14 21:41:00 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 21:58:46 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief  sleeps for time_to_sleep
+ * @param  *input: input struct
+ * @param  *philo: philo
+ */
 void	philo_sleep(t_input *input, t_philo *philo)
 {
 	print_state(input, philo, SLEEP);
@@ -19,6 +24,12 @@ void	philo_sleep(t_input *input, t_philo *philo)
 	print_state(input, philo, THINK);
 }
 
+/**
+ * @brief  claim forks, eat for time_to_eat and unlock forks
+ * @note   splitted left-first / right-first to prevent deadlock
+ * @param  *input: input struct
+ * @param  *philo: philo
+ */
 void	philo_eat(t_input *input, t_philo *philo)
 {
 	if (philo->philo_n % 2 == 0)
@@ -41,6 +52,11 @@ void	philo_eat(t_input *input, t_philo *philo)
 	pthread_mutex_unlock(&(philo->fork_l));
 }
 
+/**
+ * @brief  start of routine, calls actions until dead or eat_n_times
+ * @param  *input: input struct
+ * @param  *philo: philo
+ */
 void	start_do_something(t_input *input, t_philo *philo)
 {
 	if (philo->philo_n % 2 == 0)
