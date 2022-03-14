@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/14 22:02:32 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 22:28:18 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void	philo_eat(t_input *input, t_philo *philo)
 {
 	if (philo->philo_n % 2 == 0)
 	{
-		pthread_mutex_lock(&(philo->fork_r));
-		print_state(input, philo, FORK);
 		pthread_mutex_lock(&(philo->fork_l));
+		print_state(input, philo, FORK);
+		pthread_mutex_lock(&(philo->fork_r));
 		print_state(input, philo, FORK);
 	}
 	else
 	{
-		pthread_mutex_lock(&(philo->fork_l));
-		print_state(input, philo, FORK);
 		pthread_mutex_lock(&(philo->fork_r));
+		print_state(input, philo, FORK);
+		pthread_mutex_lock(&(philo->fork_l));
 		print_state(input, philo, FORK);
 	}
 	print_state(input, philo, EAT);
@@ -91,6 +91,5 @@ void	*routine(void *arg)
 	}
 	input->start_time = get_time();
 	start_do_something(input, philo);
-	// printf("hello from philo %d\n", philo->philo_n);
 	return (NULL);
 }
