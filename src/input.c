@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/06 15:04:03 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 21:36:05 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static bool	check_input(char **argv)
  */
 static t_input	*save_input(t_input *input, char **argv)
 {
+	int	error;
+
 	input->philo_count = ft_atoi(argv[1]);
 	input->time_to_die = ft_atoi(argv[2]);
 	input->time_to_eat = ft_atoi(argv[3]);
@@ -56,6 +58,9 @@ static t_input	*save_input(t_input *input, char **argv)
 		input->eat_n_times = ft_atoi(argv[5]);
 	else
 		input->eat_n_times = -1;
+	error = pthread_mutex_init(&(input->print_lock), NULL);
+	if (error != 0)
+		return (NULL);
 	return (input);
 }
 

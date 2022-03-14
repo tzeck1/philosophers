@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:44:53 by tom               #+#    #+#             */
-/*   Updated: 2022/03/09 22:54:18 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 21:39:16 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,36 @@ void	free_all(t_philo **philos, t_input *input)
 	destroy_forks(philos);
 	free_philos(philos);
 	free(input);
+}
+
+long	get_time(void)
+{
+	long			time_ms;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	time_ms = (time.tv_sec * 1000);
+	time_ms += (time.tv_usec / 1000);
+	return (time_ms);
+}
+
+void	print_state(t_input *input, t_philo *philo, int status)
+{
+	long			cur_t;
+	long			new_t;
+
+	new_t = get_time();
+	cur_t = new_t - input->start_time;
+	pthread_mutex_lock(&(input->print_lock));
+	if (status == FORK)
+		printf("[%ld] %d has taken a fork\n", cur_t, philo->philo_n);
+	else if (status == EAT)
+		printf("[%ld] %d is eating\n", cur_t, philo->philo_n);
+	else if (status == SLEEP)
+		printf("[%ld] %d is sleeping\n", cur_t, philo->philo_n);
+	else if (status == THINK)
+		printf("[%ld] %d is thinking\n", cur_t, philo->philo_n);
+	else if (status == DEAD)
+		printf("[%ld] %d died\n", cur_t, philo->philo_n);
+	pthread_mutex_unlock(&(input->print_lock));
 }

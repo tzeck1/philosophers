@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/09 22:58:53 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 21:37:11 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	ft_terminate(t_input *input, t_philo **philos)
 		}
 		i++;
 	}
+	pthread_mutex_destroy(&(input->print_lock));
 	free_all(philos, input);
 	return (EXIT_SUCCESS);
 }

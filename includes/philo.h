@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/09 23:04:22 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 21:32:58 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,25 @@
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
 
+/*	enum	*/
+typedef enum e_status{
+	FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	DEAD
+}			t_status;
+
 /*	structs	*/
 typedef struct s_input
 {
-	long long	philo_count;
-	long long	time_to_die;
-	long long	time_to_eat;
-	long long	time_to_sleep;
-	long long	eat_n_times;
+	long long		philo_count;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	long long		eat_n_times;
+	long			start_time;
+	pthread_mutex_t	print_lock;
 }				t_input;
 
 typedef struct s_philo
@@ -50,6 +61,7 @@ typedef struct s_philo
 	pthread_mutex_t		fork_r;
 	pthread_mutex_t		fork_l;
 	bool				wait;
+	bool				dead;
 }						t_philo;
 
 typedef struct s_data
@@ -77,5 +89,7 @@ bool		ft_isdigit(int c);
 long long	ft_atoi(const char *str);
 void		destroy_forks(t_philo	**philos);
 void		free_all(t_philo **philos, t_input *input);
+long		get_time(void);
+void		print_state(t_input *input, t_philo *philo, int status);
 
 #endif

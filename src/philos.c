@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/09 23:04:57 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 18:28:07 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	init_philos(t_input *input, t_philo **philos)
 		if (philos[i] == NULL)
 			return (EXIT_FAILURE);
 		philos[i]->philo_n = i + 1;
+		philos[i]->dead = false;
 		philos[i]->wait = false;
 		if (i + 1 >= input->philo_count)
 			philos[i]->wait = true;
