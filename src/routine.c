@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/14 21:58:46 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/14 22:02:32 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,15 @@ void	*routine(void *arg)
 	data = (t_data *)arg;
 	input = data->input;
 	philo = data->philo;
-	if (philo->wait == false)
+	if (philo->wait == true)
 		pthread_mutex_lock(&(data->start));
 	else
 	{
 		pthread_mutex_unlock(&(data->start));
 		pthread_mutex_destroy(&(data->start));
-		input->start_time = get_time();
 		free(data);
 	}
+	input->start_time = get_time();
 	start_do_something(input, philo);
 	// printf("hello from philo %d\n", philo->philo_n);
 	return (NULL);
