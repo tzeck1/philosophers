@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/14 22:28:18 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/16 21:39:16 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	philo_eat(t_input *input, t_philo *philo)
 		pthread_mutex_lock(&(philo->fork_l));
 		print_state(input, philo, FORK);
 	}
+	pthread_mutex_lock(&(input->time_lock));
+	philo->time = get_time();
+	pthread_mutex_unlock(&(input->time_lock));
 	print_state(input, philo, EAT);
 	usleep(input->time_to_eat * 1000);
 	pthread_mutex_unlock(&(philo->fork_r));
@@ -65,6 +68,13 @@ void	start_do_something(t_input *input, t_philo *philo)
 	{
 		philo_eat(input, philo);
 		philo_sleep(input, philo);
+		pthread_mutex_lock(&(input->death_lock));
+		if (input->death == true)
+		{
+			pthread_mutex_unlock(&(input->death_lock));
+			return ;
+		}
+		pthread_mutex_unlock(&(input->death_lock));
 	}
 }
 
@@ -81,15 +91,12 @@ void	*routine(void *arg)
 	data = (t_data *)arg;
 	input = data->input;
 	philo = data->philo;
-	if (philo->wait == true)
-		pthread_mutex_lock(&(data->start));
-	else
-	{
-		pthread_mutex_unlock(&(data->start));
-		pthread_mutex_destroy(&(data->start));
-		free(data);
-	}
-	input->start_time = get_time();
+	while (input->wait == true)
+		continue ;
+	free(data);
+	pthread_mutex_lock(&(input->time_lock));
+	philo->time = input->start_time;
+	pthread_mutex_unlock(&(input->time_lock));
 	start_do_something(input, philo);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/14 22:33:26 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/16 21:15:36 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	init_threads(t_input *input, t_philo **philos, int i)
  */
 int	init_philos(t_input *input, t_philo **philos)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < input->philo_count)
@@ -97,10 +97,9 @@ int	init_philos(t_input *input, t_philo **philos)
 		if (philos[i] == NULL)
 			return (EXIT_FAILURE);
 		philos[i]->philo_n = i + 1;
-		philos[i]->dead = false;
-		philos[i]->wait = true;
-		if (i + 1 >= input->philo_count)
-			philos[i]->wait = false;
+		// philos[i]->wait = true;
+		// if (i + 1 >= input->philo_count)
+		// 	philos[i]->wait = false;
 		if (init_forks(input, philos) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		if (init_threads(input, philos, i) == EXIT_FAILURE)

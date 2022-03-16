@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/14 21:37:11 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/16 21:36:26 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char **argv)
 		ft_print_error(RED"Error while creating philos!\n"RESET);
 		return (EXIT_FAILURE);
 	}
+	ft_reaper(input, philos);
 	ft_terminate(input, philos);
 	// system("leaks philo");
 	return (EXIT_SUCCESS);
