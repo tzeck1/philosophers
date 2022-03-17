@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/16 21:15:36 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 02:34:21 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	init_forks(t_input *input, t_philo **philos)
 	}
 	philos[0]->fork_l = philos[i - 1]->fork_r;
 	if (input->philo_count == 1)
-		one_philo(philos);
+		i++;
 	return (EXIT_SUCCESS);
 }
 
@@ -74,7 +74,7 @@ static int	init_threads(t_input *input, t_philo **philos, int i)
 	data->philo = philos[i];
 	pthread_mutex_init(&(data->start), NULL);
 	error = pthread_create(&philos[i]->thread_id, NULL, &routine, data);
-	usleep(50);
+	usleep(100);
 	// free(data);
 	if (error != 0)
 		return (EXIT_FAILURE);

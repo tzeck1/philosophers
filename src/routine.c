@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/16 21:39:16 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 02:36:25 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void	philo_sleep(t_input *input, t_philo *philo)
 {
 	print_state(input, philo, SLEEP);
-	usleep(input->time_to_sleep * 1000);
+	ft_sleep(input->time_to_sleep);
 	print_state(input, philo, THINK);
 }
 
@@ -50,7 +50,7 @@ void	philo_eat(t_input *input, t_philo *philo)
 	philo->time = get_time();
 	pthread_mutex_unlock(&(input->time_lock));
 	print_state(input, philo, EAT);
-	usleep(input->time_to_eat * 1000);
+	ft_sleep(input->time_to_eat);
 	pthread_mutex_unlock(&(philo->fork_r));
 	pthread_mutex_unlock(&(philo->fork_l));
 }

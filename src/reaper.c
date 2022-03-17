@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:07:02 by tom               #+#    #+#             */
-/*   Updated: 2022/03/16 21:36:15 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 02:23:45 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static bool	check_philo(t_input *input, t_philo **philos)
 			pthread_mutex_lock(&(input->death_lock));
 			input->death = true;
 			pthread_mutex_unlock(&(input->death_lock));
-			death_time = get_time();
-			printf(RED"[%ld] %d is dead\n"RESET, death_time - input->start_time, philos[i]->philo_n);
+			death_time = get_time() - input->start_time;
+			printf(RED"[%ld] %d is dead\n"RESET, death_time, philos[i]->philo_n);
 			return (false);
 		}
 		pthread_mutex_unlock(&(input->time_lock));
@@ -41,7 +41,7 @@ void	ft_reaper(t_input *input, t_philo **philos)
 {
 	input->start_time = get_time();
 	input->wait = false;
-	usleep(input->time_to_die / 2);
+	ft_sleep(input->time_to_die / 2);
 	while (true)
 	{
 		if (check_philo(input, philos) == false)

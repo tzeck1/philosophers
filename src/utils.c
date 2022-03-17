@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:44:53 by tom               #+#    #+#             */
-/*   Updated: 2022/03/16 21:16:28 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 02:23:01 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,10 @@ void	free_all(t_philo **philos, t_input *input)
  */
 long	get_time(void)
 {
-	long			time_ms;
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	time_ms = (time.tv_sec * 1000);
-	time_ms += (time.tv_usec / 1000);
-	return (time_ms);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 /**
@@ -177,4 +174,13 @@ void	print_state(t_input *input, t_philo *philo, int status)
 			printf("[%ld] %d is thinking\n", cur_t, philo->philo_n);
 	}
 	pthread_mutex_unlock(&(input->print_lock));
+}
+
+void	ft_sleep(long time_ms)
+{
+	long	start_time;
+
+	start_time = get_time();
+	while (start_time + time_ms > get_time())
+		usleep(100);
 }
