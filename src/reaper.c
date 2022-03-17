@@ -6,12 +6,18 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:07:02 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 17:37:26 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 19:36:08 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief  sets death bool and prints message
+ * @param  *input: input struct
+ * @param  *philo: philo struct
+ * @param  dead: true if died, false if n_time_eat reached
+ */
 static void	death_routine(t_input *input, t_philo *philo, bool dead)
 {
 	long	death_time;
@@ -26,6 +32,11 @@ static void	death_routine(t_input *input, t_philo *philo, bool dead)
 	}
 }
 
+/**
+ * @brief  checks if philo ate enough
+ * @param  *input: input struct
+ * @param  *philo: philo struct
+ */
 static void	check_eat_status(t_input *input, t_philo *philo)
 {
 	pthread_mutex_lock(input->eat_lock);
@@ -34,6 +45,12 @@ static void	check_eat_status(t_input *input, t_philo *philo)
 	pthread_mutex_unlock(input->eat_lock);
 }
 
+/**
+ * @brief  checks if all philos are done eating
+ * @param  *input: input struct
+ * @param  **philos: philo struct
+ * @retval true if done
+ */
 static bool	finished_eating(t_input *input, t_philo **philos)
 {
 	int	i;
@@ -52,6 +69,12 @@ static bool	finished_eating(t_input *input, t_philo **philos)
 	return (false);
 }
 
+/**
+ * @brief  checks if philo reached death time
+ * @param  *input: input struct
+ * @param  **philos: philo struct
+ * @retval true if dead
+ */
 static bool	check_philo(t_input *input, t_philo **philos)
 {
 	int		i;
@@ -80,6 +103,11 @@ static bool	check_philo(t_input *input, t_philo **philos)
 	return (true);
 }
 
+/**
+ * @brief  scans philos for dead people while threads running
+ * @param  *input: input struct
+ * @param  **philos: philo struct
+ */
 void	ft_reaper(t_input *input, t_philo **philos)
 {
 	input->start_time = get_time();

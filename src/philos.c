@@ -6,12 +6,16 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 17:34:30 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 18:36:36 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief  give philo left fork access to n - 1 right fork
+ * @param  **philos: philo struct
+ */
 static void	init_forks_l(t_philo **philos)
 {
 	int	i;
@@ -26,7 +30,7 @@ static void	init_forks_l(t_philo **philos)
 }
 
 /**
- * @brief  init_mutex for every philos fork; give them access to left one
+ * @brief  init_mutex for every philos fork
  * @param  **philos: philo array
  * @retval error if mutex_init for fork fails or success
  */

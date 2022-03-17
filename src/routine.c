@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 17:44:04 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 18:37:24 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	philo_sleep(t_input *input, t_philo *philo)
 	print_state(input, philo, THINK);
 }
 
+/**
+ * @brief  philo claims forks, waits if not accessable
+ * @param  *input: input struct
+ * @param  *philo: philo struct
+ */
 void	philo_fork(t_input *input, t_philo *philo)
 {
 	pthread_mutex_lock(philo->fork_l);

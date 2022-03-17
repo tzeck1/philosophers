@@ -6,12 +6,17 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 17:35:07 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 18:35:35 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief  alloc all mutex and init them
+ * @param  *input: input struct
+ * @retval error code
+ */
 static int	init_mutex(t_input *input)
 {
 	int	error;

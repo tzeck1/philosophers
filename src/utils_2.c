@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 15:23:52 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 17:23:32 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 18:38:36 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void	print_state(t_input *input, t_philo *philo, int status)
 	pthread_mutex_unlock(input->print_lock);
 }
 
+/**
+ * @brief  sleep function, better than usleep
+ * @param  time_ms: time_to_eat or time_to_sleep
+ */
 void	ft_sleep(long time_ms)
 {
 	long	start_time;
