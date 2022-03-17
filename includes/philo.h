@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/09 23:04:22 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 13:49:41 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,41 @@
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
 
+/*	enum	*/
+typedef enum e_status{
+	FORK,
+	EAT,
+	SLEEP,
+	THINK
+}			t_status;
+
 /*	structs	*/
 typedef struct s_input
 {
-	long long	philo_count;
-	long long	time_to_die;
-	long long	time_to_eat;
-	long long	time_to_sleep;
-	long long	eat_n_times;
+	long			philo_count;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			eat_n_times;
+	long			start_time;
+	bool			death;
+	bool			wait;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	death_lock;
+	pthread_mutex_t	time_lock;
+	pthread_mutex_t	eat_lock;
 }				t_input;
 
 typedef struct s_philo
 {
 	int					philo_n;
 	pthread_t			thread_id;
-	pthread_mutex_t		fork_r;
-	pthread_mutex_t		fork_l;
-	bool				wait;
+	pthread_mutex_t		*fork_r;
+	pthread_mutex_t		*fork_l;
+	// bool				wait;
+	long				time;
+	bool				running;
+	long				eat_n_times;
 }						t_philo;
 
 typedef struct s_data
@@ -69,6 +87,9 @@ int			init_philos(t_input *input, t_philo **philos);
 /*	routine	*/
 void		*routine(void *arg);
 
+/*	reaper	*/
+void		ft_reaper(t_input *input, t_philo **philos);
+
 /*	utils	*/
 void		*ft_calloc(size_t count, size_t size);
 void		ft_print_error(char *error);
@@ -77,5 +98,7 @@ bool		ft_isdigit(int c);
 long long	ft_atoi(const char *str);
 void		destroy_forks(t_philo	**philos);
 void		free_all(t_philo **philos, t_input *input);
-
+long		get_time(void);
+void		print_state(t_input *input, t_philo *philo, int status);
+void		ft_sleep(long time_ms);
 #endif
