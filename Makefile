@@ -6,7 +6,7 @@
 #    By: tom <tom@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/01 00:09:38 by tom               #+#    #+#              #
-#    Updated: 2022/03/16 20:25:15 by tom              ###   ########.fr        #
+#    Updated: 2022/03/17 17:36:31 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OBJ_PATH = ./obj/
 UTILS_PATH = ./src/
 
 # SOURCES
-SRC =	$(SRC_PATH)main.c $(SRC_PATH)utils.c \
+SRC =	$(SRC_PATH)main.c $(SRC_PATH)utils_1.c $(SRC_PATH)utils_2.c\
 		$(SRC_PATH)input.c $(SRC_PATH)philos.c \
 		$(SRC_PATH)routine.c $(SRC_PATH)reaper.c
 

@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 14:44:00 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 17:06:17 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	ft_terminate(t_input *input, t_philo **philos)
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		// error = pthread_join(philos[i]->thread_id, NULL);
 		error = pthread_detach(philos[i]->thread_id);
 		if (error != 0)
 		{
@@ -49,7 +48,6 @@ static int	ft_terminate(t_input *input, t_philo **philos)
 		}
 		i++;
 	}
-	pthread_mutex_destroy(&(input->print_lock));
 	free_all(philos, input);
 	return (EXIT_SUCCESS);
 }
@@ -76,6 +74,6 @@ int	main(int argc, char **argv)
 	}
 	ft_reaper(input, philos);
 	ft_terminate(input, philos);
-	// system("leaks philo");
+	system("leaks philo");
 	return (EXIT_SUCCESS);
 }

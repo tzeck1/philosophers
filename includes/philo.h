@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 13:49:41 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 18:31:14 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <limits.h> // int_max / int_min macros
 # include <stdlib.h> // malloc
 # include <pthread.h> // pthread functions
-
-# define PRINT_HERE() (printf("in file: %s at line %d\n", __FILE__, __LINE__))
 
 /*	color codes	*/
 # define BLUE "\033[38;5;36m"
@@ -52,10 +50,10 @@ typedef struct s_input
 	long			start_time;
 	bool			death;
 	bool			wait;
-	pthread_mutex_t	print_lock;
-	pthread_mutex_t	death_lock;
-	pthread_mutex_t	time_lock;
-	pthread_mutex_t	eat_lock;
+	pthread_mutex_t	*print_lock;
+	pthread_mutex_t	*death_lock;
+	pthread_mutex_t	*time_lock;
+	pthread_mutex_t	*eat_lock;
 }				t_input;
 
 typedef struct s_philo
@@ -64,7 +62,6 @@ typedef struct s_philo
 	pthread_t			thread_id;
 	pthread_mutex_t		*fork_r;
 	pthread_mutex_t		*fork_l;
-	// bool				wait;
 	long				time;
 	bool				running;
 	long				eat_n_times;
@@ -74,7 +71,6 @@ typedef struct s_data
 {
 	t_input			*input;
 	t_philo			*philo;
-	pthread_mutex_t	start;
 }			t_data;
 
 /*	input handling	*/
