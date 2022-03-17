@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 17:06:17 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 19:38:27 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,5 @@ int	main(int argc, char **argv)
 	}
 	ft_reaper(input, philos);
 	ft_terminate(input, philos);
-	system("leaks philo");
 	return (EXIT_SUCCESS);
 }
