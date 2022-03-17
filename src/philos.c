@@ -6,45 +6,16 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 13:48:01 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 17:34:30 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/**
- * @brief  created locked left fork if only one philo is simulated
- * @note	maybe find better way, kinda scuffed implementation to cut lines
- * @param  **philos: philo struct
- */
-void	one_philo(t_philo **philos)
-{
-	pthread_mutex_init(philos[0]->fork_l, NULL);
-	pthread_mutex_lock(philos[0]->fork_l);
-}
-
-/**
- * @brief  init_mutex for every philos fork; give them access to left one
- * @param  **philos: philo array
- * @retval error if mutex_init for fork fails or success
- */
-static int	init_forks(t_input *input, t_philo **philos)
+static void	init_forks_l(t_philo **philos)
 {
 	int	i;
-	int	error;
 
-	i = 0;
-	while (philos[i] != NULL)
-	{
-		philos[i]->fork_r = ft_calloc(1, sizeof(pthread_mutex_t));
-		error = pthread_mutex_init(philos[i]->fork_r, NULL);
-		if (error != 0)
-		{
-			destroy_forks(philos);
-			return (EXIT_FAILURE);
-		}
-		i++;
-	}
 	i = 1;
 	while (philos[i] != NULL)
 	{
@@ -52,8 +23,21 @@ static int	init_forks(t_input *input, t_philo **philos)
 		i++;
 	}
 	philos[0]->fork_l = philos[i - 1]->fork_r;
-	if (input->philo_count == 1)
-		i++;
+}
+
+/**
+ * @brief  init_mutex for every philos fork; give them access to left one
+ * @param  **philos: philo array
+ * @retval error if mutex_init for fork fails or success
+ */
+static int	init_forks_r(t_philo *philo)
+{
+	int	error;
+
+	philo->fork_r = ft_calloc(1, sizeof(pthread_mutex_t));
+	error = pthread_mutex_init(philo->fork_r, NULL);
+	if (error != 0)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -73,10 +57,8 @@ static int	init_threads(t_input *input, t_philo **philos, int i)
 		return (EXIT_FAILURE);
 	data->input = input;
 	data->philo = philos[i];
-	pthread_mutex_init(&(data->start), NULL);
 	error = pthread_create(&philos[i]->thread_id, NULL, &routine, data);
 	usleep(100);
-	// free(data);
 	if (error != 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -98,16 +80,19 @@ int	init_philos(t_input *input, t_philo **philos)
 		if (philos[i] == NULL)
 			return (EXIT_FAILURE);
 		philos[i]->philo_n = i + 1;
-		// philos[i]->wait = true;
-		// if (i + 1 >= input->philo_count)
-		// 	philos[i]->wait = false;
 		philos[i]->eat_n_times = 0;
-		if (init_forks(input, philos) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		if (init_threads(input, philos, i) == EXIT_FAILURE)
+		if (init_forks_r(philos[i]) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		i++;
 	}
 	philos[i] = NULL;
+	init_forks_l(philos);
+	i = 0;
+	while (philos[i] != NULL)
+	{
+		if (init_threads(input, philos, i) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }

@@ -6,11 +6,29 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 13:49:55 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 17:35:07 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static int	init_mutex(t_input *input)
+{
+	int	error;
+
+	input->print_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	input->death_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	input->time_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	input->eat_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (input->print_lock == NULL || input->death_lock == NULL
+		|| input->time_lock == NULL || input->eat_lock == NULL)
+		return (-1);
+	error = pthread_mutex_init(input->print_lock, NULL);
+	error += pthread_mutex_init(input->death_lock, NULL);
+	error += pthread_mutex_init(input->time_lock, NULL);
+	error += pthread_mutex_init(input->eat_lock, NULL);
+	return (error);
+}
 
 /**
  * @brief  returns true if input is only numeric, false if not
@@ -60,10 +78,7 @@ static t_input	*save_input(t_input *input, char **argv)
 		input->eat_n_times = -1;
 	input->death = false;
 	input->wait = true;
-	error = pthread_mutex_init(&(input->print_lock), NULL);
-	error += pthread_mutex_init(&(input->death_lock), NULL);
-	error += pthread_mutex_init(&(input->time_lock), NULL);
-	error += pthread_mutex_init(&(input->eat_lock), NULL);
+	error = init_mutex(input);
 	if (error != 0)
 		return (NULL);
 	return (input);
