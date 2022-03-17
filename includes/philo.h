@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 02:18:44 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 13:49:41 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,19 @@ typedef struct s_input
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	time_lock;
+	pthread_mutex_t	eat_lock;
 }				t_input;
 
 typedef struct s_philo
 {
 	int					philo_n;
 	pthread_t			thread_id;
-	pthread_mutex_t		fork_r;
-	pthread_mutex_t		fork_l;
+	pthread_mutex_t		*fork_r;
+	pthread_mutex_t		*fork_l;
 	// bool				wait;
 	long				time;
+	bool				running;
+	long				eat_n_times;
 }						t_philo;
 
 typedef struct s_data

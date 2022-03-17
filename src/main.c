@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:31 by tom               #+#    #+#             */
-/*   Updated: 2022/03/16 21:36:26 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 14:44:00 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static int	ft_terminate(t_input *input, t_philo **philos)
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		error = pthread_join(philos[i]->thread_id, NULL);
+		// error = pthread_join(philos[i]->thread_id, NULL);
+		error = pthread_detach(philos[i]->thread_id);
 		if (error != 0)
 		{
 			ft_print_error(RED"Error while waiting for threads!"RESET);

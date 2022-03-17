@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 01:51:08 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 02:34:21 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 13:48:01 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
  */
 void	one_philo(t_philo **philos)
 {
-	pthread_mutex_init(&(philos[0]->fork_l), NULL);
-	pthread_mutex_lock(&(philos[0]->fork_l));
+	pthread_mutex_init(philos[0]->fork_l, NULL);
+	pthread_mutex_lock(philos[0]->fork_l);
 }
 
 /**
@@ -36,7 +36,8 @@ static int	init_forks(t_input *input, t_philo **philos)
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		error = pthread_mutex_init(&philos[i]->fork_r, NULL);
+		philos[i]->fork_r = ft_calloc(1, sizeof(pthread_mutex_t));
+		error = pthread_mutex_init(philos[i]->fork_r, NULL);
 		if (error != 0)
 		{
 			destroy_forks(philos);
@@ -100,6 +101,7 @@ int	init_philos(t_input *input, t_philo **philos)
 		// philos[i]->wait = true;
 		// if (i + 1 >= input->philo_count)
 		// 	philos[i]->wait = false;
+		philos[i]->eat_n_times = 0;
 		if (init_forks(input, philos) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		if (init_threads(input, philos, i) == EXIT_FAILURE)

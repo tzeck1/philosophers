@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:44:53 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 02:23:01 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 13:03:45 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	destroy_forks(t_philo	**philos)
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		pthread_mutex_destroy(&philos[i]->fork_r);
+		pthread_mutex_destroy(philos[i]->fork_r);
+		free(philos[i]->fork_r);
 		i++;
 	}
 }
@@ -159,9 +160,9 @@ void	print_state(t_input *input, t_philo *philo, int status)
 	long			cur_t;
 	long			new_t;
 
+	pthread_mutex_lock(&(input->print_lock));
 	new_t = get_time();
 	cur_t = new_t - input->start_time;
-	pthread_mutex_lock(&(input->print_lock));
 	if (input->death == false)
 	{
 		if (status == FORK)

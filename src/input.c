@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/16 21:11:43 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 13:49:55 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static t_input	*save_input(t_input *input, char **argv)
 	error = pthread_mutex_init(&(input->print_lock), NULL);
 	error += pthread_mutex_init(&(input->death_lock), NULL);
 	error += pthread_mutex_init(&(input->time_lock), NULL);
+	error += pthread_mutex_init(&(input->eat_lock), NULL);
 	if (error != 0)
 		return (NULL);
 	return (input);

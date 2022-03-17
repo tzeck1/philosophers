@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 02:36:25 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 14:05:11 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,29 @@ void	philo_sleep(t_input *input, t_philo *philo)
 	print_state(input, philo, THINK);
 }
 
+void	philo_fork(t_input *input, t_philo *philo)
+{
+	// if (philo->philo_n % 2 == 0)
+	// {
+	pthread_mutex_lock(philo->fork_l);
+	print_state(input, philo, FORK);
+	if (input->philo_count == 1)
+	{
+		pthread_mutex_unlock(philo->fork_l);
+		ft_sleep(input->time_to_die + 1);
+	}
+	pthread_mutex_lock(philo->fork_r);
+	print_state(input, philo, FORK);
+	// }
+	// else
+	// {
+	// 	pthread_mutex_lock(philo->fork_r);
+	// 	print_state(input, philo, FORK);
+	// 	pthread_mutex_lock(philo->fork_l);
+	// 	print_state(input, philo, FORK);
+	// }
+}
+
 /**
  * @brief  claim forks, eat for time_to_eat and unlock forks
  * @note   splitted left-first / right-first to prevent deadlock
@@ -32,27 +55,17 @@ void	philo_sleep(t_input *input, t_philo *philo)
  */
 void	philo_eat(t_input *input, t_philo *philo)
 {
-	if (philo->philo_n % 2 == 0)
-	{
-		pthread_mutex_lock(&(philo->fork_l));
-		print_state(input, philo, FORK);
-		pthread_mutex_lock(&(philo->fork_r));
-		print_state(input, philo, FORK);
-	}
-	else
-	{
-		pthread_mutex_lock(&(philo->fork_r));
-		print_state(input, philo, FORK);
-		pthread_mutex_lock(&(philo->fork_l));
-		print_state(input, philo, FORK);
-	}
+	philo_fork(input, philo);
 	pthread_mutex_lock(&(input->time_lock));
 	philo->time = get_time();
 	pthread_mutex_unlock(&(input->time_lock));
+	pthread_mutex_lock(&(input->eat_lock));
+	philo->eat_n_times++;
+	pthread_mutex_unlock(&(input->eat_lock));
 	print_state(input, philo, EAT);
 	ft_sleep(input->time_to_eat);
-	pthread_mutex_unlock(&(philo->fork_r));
-	pthread_mutex_unlock(&(philo->fork_l));
+	pthread_mutex_unlock(philo->fork_r);
+	pthread_mutex_unlock(philo->fork_l);
 }
 
 /**
@@ -93,6 +106,7 @@ void	*routine(void *arg)
 	philo = data->philo;
 	while (input->wait == true)
 		continue ;
+	philo->running = true;
 	free(data);
 	pthread_mutex_lock(&(input->time_lock));
 	philo->time = input->start_time;
