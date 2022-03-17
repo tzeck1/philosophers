@@ -6,11 +6,35 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 18:35:35 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 22:53:16 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+/**
+ * @brief  tests for empty string like <4 "" 100 100>
+ * @param  argc: n of arguments
+ * @param  **argv: arguments
+ * @retval false for empty argument
+ */
+static bool	check_empty(int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (i < argc)
+	{
+		if (argv[i][0] == '\0')
+		{
+			ft_print_error(RED"Input can't be empty!"RESET);
+			ft_print_help();
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
 
 /**
  * @brief  alloc all mutex and init them
@@ -94,10 +118,12 @@ static t_input	*save_input(t_input *input, char **argv)
  * @param  **argv: user input
  * @retval input struct
  */
-t_input	*init_input(char **argv)
+t_input	*init_input(int argc, char **argv)
 {
 	t_input	*input;
 
+	if (check_empty(argc, argv) == false)
+		return (NULL);
 	if (check_input(argv) == false)
 		return (NULL);
 	input = ft_calloc(1, sizeof(t_input));

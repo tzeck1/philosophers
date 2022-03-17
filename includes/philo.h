@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:25:33 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 18:31:14 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 22:49:10 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_data
 
 /*	input handling	*/
 void		ft_print_help(void);
-t_input		*init_input(char **argv);
+t_input		*init_input(int argc, char **argv);
 
 /*	create philos	*/
 int			init_philos(t_input *input, t_philo **philos);
