@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:07:02 by tom               #+#    #+#             */
-/*   Updated: 2022/03/17 19:36:08 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/19 18:22:06 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	death_routine(t_input *input, t_philo *philo, bool dead)
 	if (dead == true)
 	{
 		death_time = get_time() - input->start_time;
+		ft_sleep(2);
 		printf(RED"[%ld] %d is dead\n"RESET, death_time, philo->philo_n);
 	}
 }
