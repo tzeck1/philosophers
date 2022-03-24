@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tzeck <tzeck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:38:46 by tom               #+#    #+#             */
-/*   Updated: 2022/03/19 17:39:36 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/19 20:24:07 by tzeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ static int	init_mutex(t_input *input)
 	input->death_lock = ft_calloc(1, sizeof(pthread_mutex_t));
 	input->time_lock = ft_calloc(1, sizeof(pthread_mutex_t));
 	input->eat_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (input->print_lock == NULL || input->death_lock == NULL
+		|| input->time_lock == NULL || input->eat_lock == NULL)
+		return (-1);
 	error = pthread_mutex_init(input->print_lock, NULL);
 	error += pthread_mutex_init(input->death_lock, NULL);
 	error += pthread_mutex_init(input->time_lock, NULL);

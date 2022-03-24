@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:14:55 by tom               #+#    #+#             */
-/*   Updated: 2022/03/19 17:36:47 by tom              ###   ########.fr       */
+/*   Updated: 2022/03/17 18:37:24 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * @param  *input: input struct
  * @param  *philo: philo
  */
-static void	philo_sleep(t_input *input, t_philo *philo)
+void	philo_sleep(t_input *input, t_philo *philo)
 {
 	print_state(input, philo, SLEEP);
 	ft_sleep(input->time_to_sleep);
@@ -29,7 +29,7 @@ static void	philo_sleep(t_input *input, t_philo *philo)
  * @param  *input: input struct
  * @param  *philo: philo struct
  */
-static void	philo_fork(t_input *input, t_philo *philo)
+void	philo_fork(t_input *input, t_philo *philo)
 {
 	pthread_mutex_lock(philo->fork_l);
 	print_state(input, philo, FORK);
@@ -48,7 +48,7 @@ static void	philo_fork(t_input *input, t_philo *philo)
  * @param  *input: input struct
  * @param  *philo: philo
  */
-static void	philo_eat(t_input *input, t_philo *philo)
+void	philo_eat(t_input *input, t_philo *philo)
 {
 	philo_fork(input, philo);
 	pthread_mutex_lock(input->time_lock);
@@ -68,7 +68,7 @@ static void	philo_eat(t_input *input, t_philo *philo)
  * @param  *input: input struct
  * @param  *philo: philo
  */
-static void	start_routine(t_input *input, t_philo *philo)
+void	start_routine(t_input *input, t_philo *philo)
 {
 	if (philo->philo_n % 2 == 0)
 		philo_sleep(input, philo);
